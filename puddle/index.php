@@ -17,23 +17,38 @@
     </head>
 
     <body>
-        <?php $path = explode('/',$_SERVER["REQUEST_URI"]);
-        if($is_home) { ?>
-            <div id="background" style="background: url(/templates/puddle/puddle.jpg) no-repeat center center fixed;"></div>
+        <?php $path = explode('/',$_SERVER["REQUEST_URI"]); //the current path
+            $puddle_image = '/templates/puddle/puddle.jpg'; //the default
+            $puddle_main_image_exists = file_exists('./posts/puddle.jpg'); //with the dot, because it has to be an absolute path
+            $puddle_post_image_exists = file_exists($image); //Post image already defaults to profile, so not that
+            $puddle_main_image = '/posts/puddle.jpg'; //without the dot, because the CSS won't work with it
+            if($puddle_main_image_exists) {
+                $puddle_image = $puddle_main_image; //if we have a post image, override it with that
+            }
+            $puddle_is_home = (count(array_filter($path)) == 0); //if there's nothing in the exploded path
+        if($puddle_is_home) { ?>
+            <div id="background" style="background: url(<?php echo($puddle_image) ?>) no-repeat center center fixed;"></div>
             <div id="hero">
                 <div id="hero-content">
                     <h1><?php echo($intro_title); ?></h1>
                 </div>
             </div>
-        <?php } else if($path[1] == "category") { ?>
-            <div id="background" style="background: url(/templates/puddle/puddle.jpg) no-repeat center center fixed;"></div>
+        <?php } else if($path[1] == "category") { //if the first directory is category ?>
+            <div id="background" style="background: url(<?php echo($puddle_image) ?>) no-repeat center center fixed;"></div>
             <div id="hero">
                 <div id="hero-content">
                     <h1><?php echo($post_category); ?></h1>
                 </div>
             </div>
-        <?php } else { ?>
+        <?php } else if($puddle_post_image_exists) { //if it's an image page ?>
             <div id="background" style="background: url(<?php echo($post_image)?>) no-repeat center center fixed;"></div>
+            <div id="hero">
+                <div id="hero-content">
+                    <h1><?php echo($post_title); ?></h1>
+                </div>
+            </div>
+        <?php } else { //if it's a post with no image ?>
+            <div id="background" style="background: url(<?php echo($puddle_image) ?>) no-repeat center center fixed;"></div>
             <div id="hero">
                 <div id="hero-content">
                     <h1><?php echo($post_title); ?></h1>
