@@ -4,7 +4,7 @@ Puddle
 Puddle is a simple theme for [Dropplets](http://dropplets.com).
 
 ##Demo
-There is currently no demo, because I don't have hosting. Sorry! If you upload one, let me know.
+You can see the homepage [here](http://puddle-demo.herokuapp.com/), but the posts pages will be broken because of how Heroku works. I'll try to find a place to host an actual demo.
 
 ##Installation
 Just copy the `puddle` folder into your `templates` folder, then select it from the list of installed templates in your dropplets menu.
